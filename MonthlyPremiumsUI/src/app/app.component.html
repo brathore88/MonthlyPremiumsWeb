@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div class="mb-3 row">
       <div class="col-sm-2">
        </div>
@@ -44,8 +44,7 @@
       <span class="input-group-text">Occupation</span>
     </div>
     <div class="col-sm-4">
-      <!-- <input type="text" aria-label="Occupation" class="form-control"> -->
-      <div class="dropdown">
+       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           Dropdown button
         </button>
@@ -57,6 +56,82 @@
       </div>
     </div>
   </div>
-  </div>  
+  </div> -->
+
   
-  
+  <div class="container mt-5">
+    <div class="row custom-wrapper">
+       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div>
+          <div class="mb-3 row">
+            <div class="col-sm-2">
+             </div>
+            <div class="col-sm-4">
+            </div>
+          </div>
+          <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Name</span>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" aria-label="Name" class="form-control">
+          </div>
+        </div>
+      
+        <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Date of Birth</span>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" aria-label="Date of Birth" class="form-control">
+          </div>
+        </div>
+        <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Age</span>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" aria-label="Age" class="form-control">
+          </div>
+        </div>
+        
+        <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Death – Sum Insured</span>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" aria-label="Death – Sum Insured" class="form-control">
+          </div>
+        </div>
+        <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Occupation</span>
+          </div>
+          <div class="col-sm-4">
+             
+          <select
+          class="form-select"
+          (change)="changeOccupation($event)"
+          formControlName="OccupationType"        >
+          <option value="">Choose Occupation</option>
+          <option *ngFor="let Occupation of Occupations" [ngValue]="Occupation">
+            {{ Occupation }}
+          </option>
+        </select>
+           
+          </div>
+        </div>
+         
+        <div class="input-group mb-3 row">
+          <div class="col-sm-2">
+            <span class="input-group-text">Death Premium </span>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" readonly aria-label="Death Premium" class="form-control">
+          </div>
+        </div>
+        </div> 
+        
+      </form>
+    </div>
+  </div>
