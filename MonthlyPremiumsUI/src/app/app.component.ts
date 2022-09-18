@@ -13,6 +13,11 @@ export class AppComponent {
   constructor(public fb: FormBuilder) {}
   registrationForm = this.fb.group({
     OccupationType: ['', [Validators.required]],
+    DeathPremium: ['', [Validators.required]],
+    SumInsured: ['', [Validators.required]],
+    Age: ['', [Validators.required]],
+    DateofBirth: ['', [Validators.required]],
+    Name: ['', [Validators.required]],
   });
   changeOccupation(e: any) {
     this.OccupationType?.setValue(e.target.value, {
