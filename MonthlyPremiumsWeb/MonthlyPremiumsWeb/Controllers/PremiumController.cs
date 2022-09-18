@@ -46,7 +46,7 @@ namespace MonthlyPremiumsWeb
 		{
 			var data = CalculatePremium.GetOccupationRating();
 			double occupationRating = 0;
-			data.TryGetValue(calculatePremium.OccupationType,out occupationRating);
+			data.TryGetValue(calculatePremium.OccupatioRating, out occupationRating);
 			double deathPremium = (calculatePremium.SumInsured*occupationRating* calculatePremium.Age)/1000*12;
 			await Task.CompletedTask;
 			return Ok(deathPremium);

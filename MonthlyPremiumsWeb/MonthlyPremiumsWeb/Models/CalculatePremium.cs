@@ -7,7 +7,7 @@ namespace MonthlyPremiumsWeb.Models
 {
 	public class CalculatePremium
 	{
-		public string OccupationType { get; set; }
+		public string OccupatioRating  { get; set; }
 		public double SumInsured { get; set; }
 		public int Age { get; set; }
 

@@ -113,10 +113,9 @@
           class="form-select"
           (change)="changeOccupation($event)"
           formControlName="OccupationType"        >
-          <option value="">Choose Occupation</option>
-          <option *ngFor="let Occupation of Occupations" [ngValue]="Occupation">
-            {{ Occupation }}
-          </option>
+          <option value="" selected>Choose Occupation</option> 
+          <option *ngFor="let item of Occupations | keyvalue" [value]="item.value" >{{item.key}}</option>
+          <!-- <option *ngFor="let Occupation of Occupations | keyvalue"  [value]="item.key" [selected]="item.value">{{item.key}}</option> -->
         </select>
            
           </div>

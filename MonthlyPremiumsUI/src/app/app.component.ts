@@ -9,7 +9,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AppComponent {
   isSubmitted = false;
-  Occupations: any = ['Cleaner', 'Doctor', 'Author', 'Farmer', 'Mechanic', 'Florist'];
+  Occupations = {'Cleaner':'Light Manual', 'Doctor':'Professional', 'Author':'White Collar', 'Farmer':'Heavy Manual'
+  , 'Mechanic':'Heavy Manual', 'Florist':'Light Manual' }
+ 
   constructor(public fb: FormBuilder) {}
   registrationForm = this.fb.group({
     OccupationType: ['', [Validators.required]],
@@ -20,6 +22,7 @@ export class AppComponent {
     Name: ['', [Validators.required]],
   });
   changeOccupation(e: any) {
+    
     this.OccupationType?.setValue(e.target.value, {
       onlySelf: true,
     });
