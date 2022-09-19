@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using  MonthlyPremiumsWeb.Models;
+using MonthlyPremiumsWeb.Models;
 using Microsoft.AspNetCore.Authorization;
+using MonthlyPremiumsWeb.Repository;
 
 namespace MonthlyPremiumsWeb
 {
@@ -13,6 +14,12 @@ namespace MonthlyPremiumsWeb
 	[ApiController]
 	public class PremiumController : ControllerBase
 	{
+		private readonly IMonthlyPremium monthlyPremiumRepository;
+		public PremiumController(IMonthlyPremium monthlyPremiumRepository)
+		{
+			this.monthlyPremiumRepository = monthlyPremiumRepository;
+
+		}
 		// GET: api/<PremiumController>
 		[HttpGet]
 		public IEnumerable<string> Get()
@@ -46,17 +53,12 @@ namespace MonthlyPremiumsWeb
 		}
 		[HttpGet("GetPremium")]
 		[AllowAnonymous]
-		public async Task<IActionResult> GetPremium(int Age,int SumInsured,string OccupatioRating)
+		public async Task<IActionResult> GetPremium(int Age, int SumInsured, string OccupatioRating)
 		{
-			var data = Calculate.GetOccupationRating();
-			double occupationRating = 0;
-			data.TryGetValue(OccupatioRating, out occupationRating);
-			double deathPremium = (SumInsured * occupationRating * Age) / 1000 * 12;
-			await Task.CompletedTask;
-			return Ok(deathPremium);
+			var Result = await monthlyPremiumRepository.GetPremium(Age, SumInsured, OccupatioRating);
+
+			return Ok(Result);
 		}
-
-
+	}
 
 	}
-}

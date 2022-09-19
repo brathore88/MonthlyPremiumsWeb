@@ -23,10 +23,8 @@ export class AppComponent {
  
   constructor(public fb: FormBuilder,private httpPremiumService:PremiumService,private http: HttpClient) {}
   registrationForm = this.fb.group({
-    OccupationType: ['', [Validators.required]],
-    DeathPremium: ['0', [Validators.required]],
-    SumInsured: ['', [Validators.required]],
-    Age: ['', [Validators.required]],
+    OccupationType: ['', [Validators.required]],    
+    SumInsured: ['', [Validators.required]],   
     DateofBirth: ['', [Validators.required]],
     Name: ['', [Validators.required]],
   });
@@ -36,26 +34,16 @@ export class AppComponent {
   }
   changeOccupation(e: any) {
     this.submitted = true;
-    console.log('this.registrationForm.invalid',this.registrationForm.invalid)
-    if (this.registrationForm.invalid) {
+    if (this.registrationForm.invalid) 
+    {
       return;
-    }
-    const formData = new FormData();
-    formData.append('Age', this.showAge);
-    formData.append('SumInsured', this.registrationForm.get('SumInsured')?.value);
-    formData.append('OccupatioRating', e.target.value);
-
-    
-    const calculatePremium:CalculatePremium = {
-        Age: this.showAge,
-        SumInsured: this.registrationForm.get('SumInsured')?.value,
-        OccupatioRating: e.target.value
-    }
-
-    
+    }else{
+       
+        
     this.calculateAge();
 
-    this.postPremium(e);
+    this.postPremium(e);}
+  
   }
    calculateAge() {
     
