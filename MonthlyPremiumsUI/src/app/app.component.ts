@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalculatePremium } from './Premium.model';
 import { PremiumService } from './premium.service';
 
@@ -15,6 +15,8 @@ export class AppComponent {
   public age: number | undefined;
   public deathPremium: any;
   isSubmitted = false;
+  submitted = false;
+
   Occupations = {'Cleaner':'Light Manual', 'Doctor':'Professional', 'Author':'White Collar', 'Farmer':'Heavy Manual'
   , 'Mechanic':'Heavy Manual', 'Florist':'Light Manual' }
   showAge: any ;
@@ -28,7 +30,16 @@ export class AppComponent {
     DateofBirth: ['', [Validators.required]],
     Name: ['', [Validators.required]],
   });
+  
+  get f(): { [key: string]: AbstractControl } {
+    return this.registrationForm.controls;
+  }
   changeOccupation(e: any) {
+    this.submitted = true;
+    console.log('this.registrationForm.invalid',this.registrationForm.invalid)
+    if (this.registrationForm.invalid) {
+      return;
+    }
     const formData = new FormData();
     formData.append('Age', this.showAge);
     formData.append('SumInsured', this.registrationForm.get('SumInsured')?.value);

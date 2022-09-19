@@ -1,64 +1,4 @@
-<!-- <div>
-    <div class="mb-3 row">
-      <div class="col-sm-2">
-       </div>
-      <div class="col-sm-4">
-      </div>
-    </div>
-    <div class="input-group mb-3 row">
-    <div class="col-sm-2">
-      <span class="input-group-text">Name</span>
-    </div>
-    <div class="col-sm-4">
-      <input type="text" aria-label="Name" class="form-control">
-    </div>
-  </div>
 
-  <div class="input-group mb-3 row">
-    <div class="col-sm-2">
-      <span class="input-group-text">Date of Birth</span>
-    </div>
-    <div class="col-sm-4">
-      <input type="text" aria-label="Date of Birth" class="form-control">
-    </div>
-  </div>
-  <div class="input-group mb-3 row">
-    <div class="col-sm-2">
-      <span class="input-group-text">Age</span>
-    </div>
-    <div class="col-sm-4">
-      <input type="text" aria-label="Age" class="form-control">
-    </div>
-  </div>
-  
-  <div class="input-group mb-3 row">
-    <div class="col-sm-2">
-      <span class="input-group-text">Death – Sum Insured</span>
-    </div>
-    <div class="col-sm-4">
-      <input type="text" aria-label="Death – Sum Insured" class="form-control">
-    </div>
-  </div>
-  <div class="input-group mb-3 row">
-    <div class="col-sm-2">
-      <span class="input-group-text">Occupation</span>
-    </div>
-    <div class="col-sm-4">
-       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  </div> -->
-
-  
   <div class="container mt-5">
     <div class="row custom-wrapper">
        <form [formGroup]="registrationForm" >
@@ -74,8 +14,12 @@
             <span class="input-group-text">Name</span>
           </div>
           <div class="col-sm-4">
-            <input type="text" formControlName="Name" aria-label="Name" class="form-control">
-          </div>
+            <input type="text" formControlName="Name" aria-label="Name" 
+            [ngClass]="{ 'is-invalid': submitted && f['Name'].errors }" class="form-control">
+            <div *ngIf="submitted && f['Name'].errors" class="invalid-feedback">
+              <div *ngIf="f['Name'].errors">Name is required</div>
+            </div>
+          </div> 
         </div>
       
         <div class="input-group mb-3 row">
@@ -83,7 +27,12 @@
             <span class="input-group-text">Date of Birth</span>
           </div>
           <div class="col-sm-4">
-            <input type="date" [(ngModel)]="age" (change)="calculateAge()"   formControlName="DateofBirth" aria-label="Date of Birth" class="form-control">
+            <input type="date"  [ngClass]="{ 'is-invalid': submitted && f['DateofBirth'].errors }"
+             [(ngModel)]="age" (change)="calculateAge()"   formControlName="DateofBirth" 
+             aria-label="Date of Birth" class="form-control">
+             <div *ngIf="submitted && f['Name'].errors" class="invalid-feedback">
+              <div *ngIf="f['Name'].errors">Date is required</div>
+            </div>
           </div>
         </div>
         <div class="input-group mb-3 row">
@@ -101,7 +50,11 @@
             <span class="input-group-text">Death – Sum Insured</span>
           </div>
           <div class="col-sm-4">
-            <input type="number" formControlName="SumInsured" aria-label="Death – Sum Insured" class="form-control">
+            <input type="number" formControlName="SumInsured" aria-label="Death – Sum Insured"
+            [ngClass]="{ 'is-invalid': submitted && f['SumInsured'].errors }" class="form-control">
+            <div *ngIf="submitted && f['Name'].errors" class="invalid-feedback">
+              <div *ngIf="f['Name'].errors">Death – Sum Insured is required</div>
+            </div>
           </div>
         </div>
         <div class="input-group mb-3 row">
