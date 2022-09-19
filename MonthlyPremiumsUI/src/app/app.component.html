@@ -61,7 +61,7 @@
   
   <div class="container mt-5">
     <div class="row custom-wrapper">
-       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+       <form [formGroup]="registrationForm" >
         <div>
           <div class="mb-3 row">
             <div class="col-sm-2">
@@ -83,7 +83,7 @@
             <span class="input-group-text">Date of Birth</span>
           </div>
           <div class="col-sm-4">
-            <input type="text"  formControlName="DateofBirth" aria-label="Date of Birth" class="form-control">
+            <input type="date" [(ngModel)]="age" (change)="calculateAge()"   formControlName="DateofBirth" aria-label="Date of Birth" class="form-control">
           </div>
         </div>
         <div class="input-group mb-3 row">
@@ -91,7 +91,8 @@
             <span class="input-group-text">Age</span>
           </div>
           <div class="col-sm-4">
-            <input type="text" formControlName="Age" aria-label="Age" class="form-control">
+           {{showAge}}
+            <!-- <input  type="number"  formControlName="Age" aria-label="Age" class="form-control"> -->
           </div>
         </div>
         
@@ -100,7 +101,7 @@
             <span class="input-group-text">Death – Sum Insured</span>
           </div>
           <div class="col-sm-4">
-            <input type="text" formControlName="SumInsured" aria-label="Death – Sum Insured" class="form-control">
+            <input type="number" formControlName="SumInsured" aria-label="Death – Sum Insured" class="form-control">
           </div>
         </div>
         <div class="input-group mb-3 row">
@@ -112,10 +113,10 @@
           <select
           class="form-select"
           (change)="changeOccupation($event)"
-          formControlName="OccupationType"        >
+          formControlName="OccupationType"  >
           <option value="" selected>Choose Occupation</option> 
           <option *ngFor="let item of Occupations | keyvalue" [value]="item.value" >{{item.key}}</option>
-          <!-- <option *ngFor="let Occupation of Occupations | keyvalue"  [value]="item.key" [selected]="item.value">{{item.key}}</option> -->
+          
         </select>
            
           </div>
@@ -126,7 +127,8 @@
             <span class="input-group-text">Death Premium </span>
           </div>
           <div class="col-sm-4">
-            <input type="text" formControlName="DeathPremium" readonly aria-label="Death Premium" class="form-control">
+            {{deathPremium}}
+            <!-- <input type="text" formControlName="DeathPremium" readonly aria-label="Death Premium" class="form-control"> -->
           </div>
         </div>
         </div> 

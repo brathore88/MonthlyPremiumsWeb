@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpEvent, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpHeaders, HttpParams} from "@angular/common/http";
 import { BaseService } from './base-service.service';
 import { CalculatePremium } from './Premium.model';
 
@@ -12,8 +12,8 @@ export class PremiumService extends BaseService{
 
   constructor(protected override httpClient:HttpClient) {super(httpClient); }
   
-  getDeathPremium(model:CalculatePremium):Observable<CalculatePremium> {
-    console.log(model)
-    return this.post<CalculatePremium>(model);
+  getPremium(params:HttpParams):Observable<any> {
+    
+    return this.getDeathPremium(params);
   }
 }

@@ -1,32 +1,17 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpEvent, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpHeaders, HttpParams} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class BaseServiceService {
+export class BaseService {
 
   constructor(protected httpClient:HttpClient) { }
-  
-
-  protected post<T>(body:any,uri?:string):Observable<T>{
-    const json = JSON.stringify(body)
-
-    const requestOptions = BaseServiceService.getRequestOptions();
-
-    const path = 'this.getPath(uri)';
-
-    return this.httpClient.post<T>(path, json, requestOptions)
-  }
-  
-  private static getRequestOptions():{headers:HttpHeaders} {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
+  getDeathPremium(params:HttpParams){
+  const headerOptions = new HttpHeaders();
+   
+     headerOptions.set('Content-Type', 'application/json');
+     return this.httpClient.get('http://localhost:13846/api/Premium/GetPremium', { params: params ,
+    headers: headerOptions});
     }
-    return {
-      headers: new HttpHeaders(headerDict),
-    };
-  }
 }

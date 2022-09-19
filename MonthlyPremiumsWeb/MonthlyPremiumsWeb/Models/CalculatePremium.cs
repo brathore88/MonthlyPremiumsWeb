@@ -11,7 +11,10 @@ namespace MonthlyPremiumsWeb.Models
 		public double SumInsured { get; set; }
 		public int Age { get; set; }
 
-		public static Dictionary<string,double> GetOccupationRating()
+	}
+	public static class Calculate
+	{ 
+		public static Dictionary<string, double> GetOccupationRating()
 		{
 			Dictionary<string, double> occupationRating = new Dictionary<string, double>();
 			occupationRating.Add("Professional", 1.0);

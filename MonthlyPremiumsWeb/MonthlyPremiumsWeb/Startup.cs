@@ -28,10 +28,10 @@ namespace MonthlyPremiumsWeb
 			services.AddCors(options =>
 			{
 				options.AddPolicy("CorsPolicy", builder => builder
-				.WithOrigins("http://localhost:4200") // the Angular app url
+				.WithOrigins() // the Angular app url
 				.AllowAnyMethod()
 				.AllowAnyHeader()
-				.AllowCredentials());
+				.AllowAnyOrigin());
 			});
 			services.AddControllers();
 		}

@@ -1,5 +1,8 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CalculatePremium } from './Premium.model';
+import { PremiumService } from './premium.service';
 
 
 @Component({
@@ -8,38 +11,65 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public birthdate: any;
+  public age: number | undefined;
+  public deathPremium: any;
   isSubmitted = false;
   Occupations = {'Cleaner':'Light Manual', 'Doctor':'Professional', 'Author':'White Collar', 'Farmer':'Heavy Manual'
   , 'Mechanic':'Heavy Manual', 'Florist':'Light Manual' }
+  showAge: any ;
  
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder,private httpPremiumService:PremiumService,private http: HttpClient) {}
   registrationForm = this.fb.group({
     OccupationType: ['', [Validators.required]],
-    DeathPremium: ['', [Validators.required]],
+    DeathPremium: ['0', [Validators.required]],
     SumInsured: ['', [Validators.required]],
     Age: ['', [Validators.required]],
     DateofBirth: ['', [Validators.required]],
     Name: ['', [Validators.required]],
   });
   changeOccupation(e: any) {
-    
-    this.OccupationType?.setValue(e.target.value, {
-      onlySelf: true,
-    });
-    console.log(e.target.value);
+    const formData = new FormData();
+    formData.append('Age', this.showAge);
+    formData.append('SumInsured', this.registrationForm.get('SumInsured')?.value);
+    formData.append('OccupatioRating', e.target.value);
 
+    
+    const calculatePremium:CalculatePremium = {
+        Age: this.showAge,
+        SumInsured: this.registrationForm.get('SumInsured')?.value,
+        OccupatioRating: e.target.value
+    }
+
+    
+    this.calculateAge();
+
+    this.postPremium(e);
   }
+   calculateAge() {
+    
+    if (this.age) {
+      const convertAge = new Date(this.age);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    }
+  }
+  private postPremium(e: any) {
+    let params = new HttpParams();
+    params = params.append('Age', this.showAge);
+    params = params.append('SumInsured', this.registrationForm.get('SumInsured')?.value);
+    params = params.append('OccupatioRating', e.target.value);
+    
+    this.httpPremiumService.getDeathPremium(params).subscribe(
+      data =>{ 
+        this.deathPremium=data;
+      }
+      );  
+  }
+
   // Access formcontrols getter
   get OccupationType() {
     return this.registrationForm.get('OccupationType');
   }
-  onSubmit(): void {
-    console.log(this.registrationForm);
-    this.isSubmitted = true;
-    if (!this.registrationForm.valid) {
-      false;
-    } else {
-      console.log(JSON.stringify(this.registrationForm.value));
-    }
-  }
+  
 }

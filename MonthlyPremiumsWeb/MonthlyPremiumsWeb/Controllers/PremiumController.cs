@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using  MonthlyPremiumsWeb.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace MonthlyPremiumsWeb
 {
-	[Route("api/[controller]")]
+	[Route("api/Premium")]
+	[AllowAnonymous]
 	[ApiController]
 	public class PremiumController : ControllerBase
 	{
@@ -41,15 +44,19 @@ namespace MonthlyPremiumsWeb
 		public void Delete(int id)
 		{
 		}
-		[HttpPost("GetDeathPremium")]
-		public async Task<IActionResult> GetDeathPremium(CalculatePremium calculatePremium)
+		[HttpGet("GetPremium")]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetPremium(int Age,int SumInsured,string OccupatioRating)
 		{
-			var data = CalculatePremium.GetOccupationRating();
+			var data = Calculate.GetOccupationRating();
 			double occupationRating = 0;
-			data.TryGetValue(calculatePremium.OccupatioRating, out occupationRating);
-			double deathPremium = (calculatePremium.SumInsured*occupationRating* calculatePremium.Age)/1000*12;
+			data.TryGetValue(OccupatioRating, out occupationRating);
+			double deathPremium = (SumInsured * occupationRating * Age) / 1000 * 12;
 			await Task.CompletedTask;
 			return Ok(deathPremium);
 		}
+
+
+
 	}
 }
